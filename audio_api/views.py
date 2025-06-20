@@ -1,9 +1,11 @@
 # audio_api/views.py
+from rest_framework.decorators import api_view
 from rest_framework import viewsets, status
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.decorators import action # Importa action
 from django.http import FileResponse, Http404 # Importa FileResponse y Http404
+
 
 from .models import AudioFile
 from .serialaizers import AudioFileSerializer
@@ -46,3 +48,12 @@ class AudioFileViewSet(viewsets.ModelViewSet):
             return response
         except FileNotFoundError:
             return Response({"detail": "File not found on server storage."}, status=status.HTTP_404_NOT_FOUND)
+        
+    @api_view(['get'])
+    def ultimo_audio(request):
+        ultimo = AudioFile.objects.order_by('-uploaded_at').first()
+        if not ultimo:
+            return Response({'detail': 'No hay audios grabados'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = AudioFileSerializer(ultimo, context={'request': request})
+        return Response(serializer.data)

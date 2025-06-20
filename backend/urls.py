@@ -22,4 +22,4 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('audio_api.urls')),  # Include the audio API URLs
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
