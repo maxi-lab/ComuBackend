@@ -8,6 +8,10 @@ Lo __activan__
 ```
 .\env\Scripts\activate
 ```
+__Si da error__: 
+```
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+```
 Y se _instalan los paquetes_
 ```
 pip install -r requirements.txt 
