@@ -38,3 +38,7 @@ Si acceden al puerto que seleccionaron, veran que la API esta corrienedo
 `/api/audio/<id>/` devuelve un audio en especifico.
 
 `/api/audio/<id>/download` para descargarlo.
+
+`/api/audio/<id>/to-mp3` para transformarlo a mp3 (no devuelve crea un audio nuevo).
+
+`/api/audio/<id>/to-wav` para transformarlo a wav (no devuelve crea un audio nuevo).
