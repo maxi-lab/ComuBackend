@@ -28,3 +28,17 @@ class AudioFile(models.Model):
         # Save the exported MP3 file
         AudioFile.objects.create(title=self.title, audio_file=mp3.name, uploaded_at=self.uploaded_at)
         return mp3.name  # Return the name of the exported MP3 file
+    def to_wav(self):
+        # Ensure ffmpeg is available
+        AudioSegment.converter = which("ffmpeg")
+        if not AudioSegment.converter:
+            raise EnvironmentError("FFmpeg is not installed or not found in the system PATH.")
+
+        # Load the audio file
+        audio = AudioSegment.from_file(self.audio_file.path)
+
+        wav_path = re.sub(r'\.[a-zA-Z0-9]+$', '.wav', self.audio_file.path)
+        AudioFile.objects.create(title=self.title+'to_wav', audio_file=wav_path, uploaded_at=self.uploaded_at)
+        audio.export(wav_path, format='wav')
+
+        

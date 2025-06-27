@@ -9,5 +9,6 @@ router.register(r'audio', AudioFileViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('ultimo-audio/', AudioFileViewSet.ultimo_audio, name='ultimo-audio'),
-    path('audio/<int:id>/to-mp3/', AudioFileViewSet.to_mp3, name='to-mp3'),  # Nueva ruta para convertir a MP3
+    path('audio/<int:id>/to-mp3/', AudioFileViewSet.to_mp3, name='to-mp3'),
+    path('audio/<int:id>/to-wav/',AudioFileViewSet.to_wav,name='to-wav'),  
 ]
