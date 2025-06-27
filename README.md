@@ -29,6 +29,8 @@ Levantar el __contenedor__, con el __volumen__ montandolo en la carpeta actual (
 ```
 docker run -d -p [puerto-fisico]:8000 -v "%cd%":/app [nombre de la imagen]
 ```
+Se les crear el archivo de la base de datos y la carpeta de media donde se guardan los audios.
+
 Si acceden al puerto que seleccionaron, veran que la API esta corrienedo
 ## Endpoints
 `/api/audio/` devuelve lista de audios.
