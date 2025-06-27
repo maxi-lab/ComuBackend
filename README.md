@@ -3,7 +3,6 @@
 Primero deben de tener instalado  __docker__.
 
 >[!IMPORTANT]
-
 >Tener docker descktop abierto
 
 Luego construir la _imagen_:
