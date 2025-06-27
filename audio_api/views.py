@@ -57,3 +57,11 @@ class AudioFileViewSet(viewsets.ModelViewSet):
 
         serializer = AudioFileSerializer(ultimo, context={'request': request})
         return Response(serializer.data)
+    @api_view(['get'])
+    def to_mp3(request,id):
+        audio= AudioFile.objects.get(id=id)
+        try:
+            mp3_path = audio.to_mp3()  # Llama al método to_mp3 del modelo AudioFile
+            return Response({"message": "Audio converted to MP3 successfully.", "mp3_path": mp3_path}, status=status.HTTP_200_OK)
+        except EnvironmentError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
