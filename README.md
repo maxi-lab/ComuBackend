@@ -1,21 +1,18 @@
 # Backend de Aplicacion 
-## Instalacion de dependencias 
-Para instalar las dependencias __primero se debe construir un entorno virtual__, con la herramienta venv de python.
+## Instalacion de ambiente de desarrollo 
+Primero deben de tener instalado  __docker__.
+
+>[!IMPORTANT]
+
+>Tener docker descktop abierto
+
+Luego construir la _imagen_:
 ```
-python -m venv env
+docker build -t [nombre de la imagen] .
 ```
-Lo __activan__
-```
-.\env\Scripts\activate
-```
-__Si da error__: 
-```
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-```
-Y se _instalan los paquetes_
-```
-pip install -r requirements.txt 
-```
+
+Nombre a eleccion.
+
 ## Poner en marcha el proyecto
 Para correr __migraciones__:
 ```
@@ -29,6 +26,11 @@ Para correr la app
 ```
 python manage.py runserver
 ```
+Levantar el __contenedor__:
+```
+docker run -d -p [puerto-fisico]:8000 [nombre de la imagen]
+```
+Si acceden al puerto que seleccionaron, veran que la API esta corrienedo
 ## Endpoints
 `/api/audio/` devuelve lista de audios.
 
