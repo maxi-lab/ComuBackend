@@ -25,9 +25,9 @@ Para correr la app
 ```
 python manage.py runserver
 ```
-Levantar el __contenedor__:
+Levantar el __contenedor__, con el __volumen__ montandolo en la carpeta actual (CMD):
 ```
-docker run -d -p [puerto-fisico]:8000 [nombre de la imagen]
+docker run -d -p [puerto-fisico]:8000 -v "%cd%":/app [nombre de la imagen]
 ```
 Si acceden al puerto que seleccionaron, veran que la API esta corrienedo
 ## Endpoints
