@@ -18,9 +18,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar el resto del proyecto
 COPY . .
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Exponer el puerto (Django por defecto usa 8000)
 EXPOSE 8000
 
 # Comando para correr el servidor de desarrollo (ajusta para producción)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "/entrypoint.sh" ]
