@@ -32,7 +32,7 @@ class AudioFile(models.Model):
         # Save the exported MP3 file
         AudioFile.objects.create(title=self.title, audio_file=nombre, uploaded_at=self.uploaded_at,tasa_muestreo=rate, cuantizacion=16)  # Assuming 16-bit quantization for MP3
         return nombre  # Return the name of the exported MP3 file
-    def to_wav(self,rate):
+    def to_wav(self,rate,profundidad):
         # Ensure ffmpeg is available
         AudioSegment.converter = which("ffmpeg")
         if not AudioSegment.converter:
@@ -44,21 +44,16 @@ class AudioFile(models.Model):
         wav_path = re.sub(r'\.[a-zA-Z0-9]+$', '.wav', self.audio_file.path)
         y,sr = librosa.load(self.audio_file.path,sr=rate)
         y_resampled = librosa.resample(y, orig_sr=sr,target_sr=rate)
-        sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_U8')  # Export to WAV with the specified sample rate and 16-bit quantization
-        AudioFile.objects.create(title=self.title+'to_wav', audio_file=wav_path, uploaded_at=self.uploaded_at)
+        if profundidad == 8:
+            sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_U8')  # Export to WAV with the specified sample rate and 16-bit quantization
+        elif profundidad == 16:
+            sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_16')
+        elif profundidad == 24:
+            sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_24')
+        else:
+            return ValueError("Unsupported quantization level. Supported levels are: 8, 16, 24.")        
+        AudioFile.objects.create(title=self.title+'to_wav', audio_file=wav_path, uploaded_at=self.uploaded_at , tasa_muestreo=rate, cuantizacion=profundidad)  # Assuming 16-bit quantization for WAV
         #audio.export(wav_path, format='wav')
-        """""
-        TODO: Add support for different quantization levels:
-        PCM_U8": 8-bit unsigned
-
-        "PCM_16": 16-bit signed
-
-        "PCM_24": 24-bit signed
-
-        "PCM_32": 32-bit signed
-
-        "FLOAT": 32-bit float
-
-        "DOUBLE": 64-bit float"""
+        
 
         

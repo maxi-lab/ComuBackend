@@ -50,7 +50,7 @@ class AudioFileViewSet(viewsets.ModelViewSet):
             return Response({"detail": "File not found on server storage."}, status=status.HTTP_404_NOT_FOUND)
         
     @api_view(['get'])
-    def ultimo_audio(request):
+    def ultimo_audio(request,):
         ultimo = AudioFile.objects.order_by('-uploaded_at').first()
         if not ultimo:
             return Response({'detail': 'No hay audios grabados'}, status=status.HTTP_404_NOT_FOUND)
@@ -58,18 +58,18 @@ class AudioFileViewSet(viewsets.ModelViewSet):
         serializer = AudioFileSerializer(ultimo, context={'request': request})
         return Response(serializer.data)
     @api_view(['get'])
-    def to_mp3(request,id):
+    def to_mp3(request,id,tasa_muestreo):
         audio= AudioFile.objects.get(id=id)
         try:
-            mp3_path = audio.to_mp3(11025)  # Llama al método to_mp3 del modelo AudioFile
+            mp3_path = audio.to_mp3(tasa_muestreo)  # Llama al método to_mp3 del modelo AudioFile
             return Response({"message": "Audio converted to MP3 successfully.", "mp3_path": mp3_path}, status=status.HTTP_200_OK)
         except EnvironmentError as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     @api_view(['get'])
-    def to_wav(request,id):
+    def to_wav(request,id,tasa_muestreo,profundidad):
         audio= AudioFile.objects.get(id=id)
         try:
-            wav_path = audio.to_wav(8000)  # Llama al método to_wav del modelo AudioFile
+            wav_path = audio.to_wav(tasa_muestreo,profundidad)  # Llama al método to_wav del modelo AudioFile
             return Response({"message": "Audio converted to WAV successfully.", "wav_path": wav_path}, status=status.HTTP_200_OK)
         except EnvironmentError as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
