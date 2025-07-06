@@ -47,5 +47,18 @@ class AudioFile(models.Model):
         sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_U8')  # Export to WAV with the specified sample rate and 16-bit quantization
         AudioFile.objects.create(title=self.title+'to_wav', audio_file=wav_path, uploaded_at=self.uploaded_at)
         #audio.export(wav_path, format='wav')
+        """""
+        TODO: Add support for different quantization levels:
+        PCM_U8": 8-bit unsigned
+
+        "PCM_16": 16-bit signed
+
+        "PCM_24": 24-bit signed
+
+        "PCM_32": 32-bit signed
+
+        "FLOAT": 32-bit float
+
+        "DOUBLE": 64-bit float"""
 
         
