@@ -7,7 +7,7 @@ class AudioFile(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     audio_file = models.FileField(upload_to='audio/') # Files will be stored in media/audio/
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    cuantizacion= models.CharField(max_length=50, blank=True, null=True)
+    cuantizacion= models.IntegerField(blank=True,null=True) # Cuantization level, e.g., 16 for 16-bit audio
     tasa_muestreo =models.IntegerField(blank=True, null=True)
 
     def __str__(self):
