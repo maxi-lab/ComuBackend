@@ -2,3 +2,4 @@ env
 db.sqlite3
 audio
 media
+__pycache__
