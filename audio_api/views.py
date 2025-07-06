@@ -61,7 +61,7 @@ class AudioFileViewSet(viewsets.ModelViewSet):
     def to_mp3(request,id):
         audio= AudioFile.objects.get(id=id)
         try:
-            mp3_path = audio.to_mp3()  # Llama al método to_mp3 del modelo AudioFile
+            mp3_path = audio.to_mp3(11025)  # Llama al método to_mp3 del modelo AudioFile
             return Response({"message": "Audio converted to MP3 successfully.", "mp3_path": mp3_path}, status=status.HTTP_200_OK)
         except EnvironmentError as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -69,7 +69,7 @@ class AudioFileViewSet(viewsets.ModelViewSet):
     def to_wav(request,id):
         audio= AudioFile.objects.get(id=id)
         try:
-            wav_path = audio.to_wav()  # Llama al método to_wav del modelo AudioFile
+            wav_path = audio.to_wav(8000)  # Llama al método to_wav del modelo AudioFile
             return Response({"message": "Audio converted to WAV successfully.", "wav_path": wav_path}, status=status.HTTP_200_OK)
         except EnvironmentError as e:
             return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
