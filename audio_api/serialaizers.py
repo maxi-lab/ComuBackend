@@ -5,5 +5,5 @@ from .models import AudioFile
 class AudioFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AudioFile
-        fields = ['id', 'title', 'audio_file', 'uploaded_at', 'cuantizacion']
+        fields = ['id', 'title', 'audio_file', 'uploaded_at', 'cuantizacion', 'tasa_muestreo']
         read_only_fields = ['uploaded_at'] # Automatically set on creation
