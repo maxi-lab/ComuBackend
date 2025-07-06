@@ -42,7 +42,10 @@ class AudioFile(models.Model):
         audio = AudioSegment.from_file(self.audio_file.path)
 
         wav_path = re.sub(r'\.[a-zA-Z0-9]+$', '.wav', self.audio_file.path)
+        y,sr = librosa.load(self.audio_file.path,sr=rate)
+        y_resampled = librosa.resample(y, orig_sr=sr,target_sr=rate)
+        sf.write(wav_path, y_resampled, rate,format='wav',subtype='PCM_U8')  # Export to WAV with the specified sample rate and 16-bit quantization
         AudioFile.objects.create(title=self.title+'to_wav', audio_file=wav_path, uploaded_at=self.uploaded_at)
-        audio.export(wav_path, format='wav')
+        #audio.export(wav_path, format='wav')
 
         
