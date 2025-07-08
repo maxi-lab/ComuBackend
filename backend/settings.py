@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&f70%2j++iquh6cunnv_^5f)qraho(tk%#5246%oy&$-mrz#zy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['comubackend-qak9.onrender.com']
+ALLOWED_HOSTS = ['comubackend-qak9.onrender.com', 'localhost', ]
 
 
 # Application definition
@@ -56,7 +56,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Tu frontend de desarrollo
     "http://127.0.0.1:5173",
-     "https://comubackend-qak9.onrender.com/",   # Si tu frontend también usa 127.0.0.1
+       # Si tu frontend también usa 127.0.0.1
     # "https://tu-dominio-produccion.com", # Si despliegas tu frontend
 ]
 ROOT_URLCONF = 'backend.urls'
