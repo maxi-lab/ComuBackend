@@ -10,5 +10,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('ultimo-audio/', AudioFileViewSet.ultimo_audio, name='ultimo-audio'),
     path('audio/<int:id>/to-mp3/<int:tasa_muestreo>/', AudioFileViewSet.to_mp3, name='to-mp3'),
-    path('audio/<int:id>/to-wav/<int:tasa_muestreo>/<int:profundidad>',AudioFileViewSet.to_wav,name='to-wav'),  
+    path('audio/<int:id>/to-wav/<int:tasa_muestreo>/<int:profundidad>/',AudioFileViewSet.to_wav,name='to-wav'),  
 ]
